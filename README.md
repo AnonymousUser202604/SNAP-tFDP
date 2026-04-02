@@ -4,6 +4,7 @@ SNAP-tFDP (Stochastic Negative-sampling Accelerated Placement t-FDP) achieves $O
 
 ## Directory Structure
 
+- `apps/`: Sources of runnable executions
 - `data/`: Dataset directory (large datasets need to be downloaded from external [link]()).
     - `*.txt`: Edge data files
     - `*.attr`: Node label files
