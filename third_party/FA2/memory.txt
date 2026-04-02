@@ -1,0 +1,20 @@
+Haverford76 103.488
+Simmons81 103.488
+Amherst41 124.359
+Pepperdine86 161.605
+Wesleyan43 161.605
+Bucknell39 166.285
+Brandeis99 166.285
+Rochester38 168.496
+Johns Hopkins55 183.352
+APH 183.352
+WashU32 293.457
+Tulane29 293.457
+co_author_8391 293.457
+Yale4 316.602
+ACO 316.602
+Cornell5 554.551
+Indiana69 869.664
+UF21 1035.836
+ogbn_arxiv 1035.836
+com_orkut_sub 4380.887
