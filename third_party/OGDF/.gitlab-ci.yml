@@ -1,0 +1,105 @@
+# GitLab CI configuration
+#
+# author: Tilo Wiedera, Jöran Schierbaum, Max Ilsen
+
+image: $CI_REGISTRY/gcc:9
+
+stages:
+  - test-simple
+  - test-advanced
+
+style:
+  except:
+    - schedules
+  image: $CI_REGISTRY/clang:15
+  script:
+    - util/style/test_clang_format.sh
+    - util/style/test_eols.sh
+    - util/style/test_number_newlines.sh
+    - util/style/test_line_length.sh
+    - util/style/test_tabs.sh
+    - util/style/test_macros.sh
+    - util/style/test_license.sh
+    - util/style/test_no_typedefs.sh
+    - util/style/test_no_enums.sh
+    - util/style/test_indent_comments.sh
+  tags:
+    - docker
+  stage: test-simple
+
+dirs:
+  except:
+    - schedules
+  script: util/test_directory_structure.sh
+  tags:
+    - docker
+  stage: test-simple
+
+docs:
+  except:
+    - schedules
+  image: $CI_REGISTRY/clang:15
+  script: util/test_doxygen.sh
+  tags:
+    - docker
+  stage: test-simple
+
+self-sufficiency:
+  except:
+    - schedules
+  script: util/test_self-sufficiency.sh
+  tags:
+    - docker
+  stage: test-advanced
+
+gcc-9-debug:
+  except:
+    - schedules
+  script: util/test_build_and_run.sh static debug gcc gurobi -DOGDF_INCLUDE_CGAL=ON
+  tags:
+    - docker
+  stage: test-advanced
+
+gcc-13-debug:
+  except:
+    - schedules
+  image: $CI_REGISTRY/gcc:13
+  script: util/test_build_and_run.sh static debug gcc gurobi -DOGDF_INCLUDE_GCAL=ON
+  tags:
+    - docker
+  stage: test-advanced
+
+clang-15-debug:
+  except:
+    - schedules
+  image: $CI_REGISTRY/clang:15
+  script: util/test_build_and_run.sh static debug clang gurobi -DOGDF_INCLUDE_CGAL=ON
+  tags:
+    - docker
+  stage: test-advanced
+
+gcc-9-release:
+  except:
+    - schedules
+  script: util/test_build_and_run.sh dynamic release gcc gurobi -DOGDF_INCLUDE_CGAL=ON
+  tags:
+    - docker
+  stage: test-advanced
+
+gcc-13-release:
+  except:
+    - schedules
+  image: $CI_REGISTRY/gcc:13
+  script: util/test_build_and_run.sh static release gcc gurobi -DOGDF_INCLUDE_CGAL=ON
+  tags:
+    - docker
+  stage: test-advanced
+
+clang-15-release:
+  except:
+    - schedules
+  image: $CI_REGISTRY/clang:15
+  script: util/test_build_and_run.sh static release clang gurobi -DOGDF_INCLUDE_CGAL=ON
+  tags:
+    - docker
+  stage: test-advanced
